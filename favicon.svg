@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Dark background matching logo-icon --bg -->
+  <rect width="64" height="64" rx="13" fill="#09101e"/>
+  <!-- Lime border matching logo-icon b-lime -->
+  <rect width="64" height="64" rx="13" fill="none" stroke="rgba(110,198,42,0.35)" stroke-width="1.5"/>
+  <!-- Exact same path as the navbar logo, scaled from 24×24 into 40×40 with 12px padding -->
+  <g transform="translate(12,12) scale(1.6667)">
+    <path fill="#6ec62a" d="M21 3H3a1 1 0 00-1 1v16a1 1 0 001 1h18a1 1 0 001-1V4a1 1 0 00-1-1zm-1 16H4V5h16v14zM7 12l3-3 3 3 4-4 1 1-5 5-3-3-2 2-1-1z"/>
+  </g>
+</svg>
