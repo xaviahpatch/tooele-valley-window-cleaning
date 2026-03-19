@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
     fadeEls.forEach(el => observer.observe(el));
   }
 
-  // ---- Contact Form ----
+  // ---- Contact Form (Web3Forms) ----
   const contactForm = document.getElementById('quoteForm');
 
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const btn = contactForm.querySelector('.form-submit');
@@ -61,14 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.innerHTML = '⏳ Sending...';
       btn.disabled = true;
 
-      // Simulate a brief sending delay (replace with real fetch for production)
-      setTimeout(() => {
-        contactForm.style.display = 'none';
-        const successMsg = document.getElementById('formSuccess');
-        if (successMsg) {
-          successMsg.classList.add('show');
+      try {
+        const formData = new FormData(contactForm);
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          contactForm.style.display = 'none';
+          const successMsg = document.getElementById('formSuccess');
+          if (successMsg) successMsg.classList.add('show');
+        } else {
+          throw new Error(data.message || 'Submission failed');
         }
-      }, 1200);
+      } catch (err) {
+        const errorMsg = document.getElementById('formError');
+        if (errorMsg) errorMsg.classList.add('show');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
     });
   }
 
